@@ -26,6 +26,7 @@ import Battleships.Grid;
 
 public class Submarine extends Ship implements Serializable {
 	private int intactSegments = 3;
+	private int gridValue = 3;
 
 	public Submarine(Grid board, int i, int j, boolean isHorizontal) {
 
@@ -44,4 +45,9 @@ public class Submarine extends Ship implements Serializable {
 
 	}
 
+	public int GetGridValue()
+	{
+		return this.gridValue;
+	}
+	
 }

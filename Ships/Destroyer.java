@@ -12,6 +12,7 @@ import Battleships.Grid;
 public class Destroyer extends Ship implements Serializable
 {
 	private int remainingIntactCells = 3;
+	private int gridValue = 7;
 	
 	public Destroyer(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -34,4 +35,10 @@ public class Destroyer extends Ship implements Serializable
 	{
 		return (remainingIntactCells == 0);
 	}
+	
+	public int GetGridValue()
+	{
+		return this.gridValue;
+	}
+
 }

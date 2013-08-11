@@ -10,6 +10,7 @@ import Battleships.Grid;
 public class Minesweeper extends Ship implements Serializable
 {
 	private int intactSegments = 2;
+	private int gridValue = 2;
 	
 	public Minesweeper(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -31,6 +32,11 @@ public class Minesweeper extends Ship implements Serializable
 		
 		if (intactSegments < 0 )
 			throw new IllegalArgumentException("Segments var is less than 0"); 			
+	}
+	
+	public int GetGridValue()
+	{
+		return this.gridValue;
 	}
 
 }

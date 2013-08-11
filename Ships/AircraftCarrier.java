@@ -12,6 +12,7 @@ public class AircraftCarrier extends Ship implements Serializable
 {
 	
 	private int intactSegments = 5;	
+	private int gridValue = 5;
 
 	public AircraftCarrier(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -35,6 +36,11 @@ public class AircraftCarrier extends Ship implements Serializable
 		if (intactSegments < 0 )
 			throw new IllegalArgumentException("Segments var is less than 0"); 		
 			
+	}
+	
+	public int GetGridValue()
+	{
+		return this.gridValue;
 	}
 
 

@@ -15,6 +15,7 @@ public class Battleship extends Ship implements Serializable
 {
 	
 	private int intactSegments = 4;	
+	private int gridValue = 4;
 	
 	public Battleship(Grid board ,int i, int j, boolean isHorizontal)
 	{
@@ -38,6 +39,10 @@ public class Battleship extends Ship implements Serializable
 		if (intactSegments < 0 )
 			throw new IllegalArgumentException("Segments var is less than 0"); 		
 			
+	}
+	public int GetGridValue()
+	{
+		return this.gridValue;
 	}
 
 }
