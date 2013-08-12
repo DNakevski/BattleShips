@@ -383,7 +383,7 @@ class GUI extends JFrame
 				Graphics hp = data.homePanel.getGraphics();	
 				AircraftCarrier.paint(hp,(j*20),(i*20));
 				out = out + data.gameState.playerHomeGrid.toString();
-				data.gameState.playerHomeGrid.setAirPlacedTrue();
+				data.gameState.playerHomeGrid.setAirPlaced(true);
 				getOutText().setText("Air Placed");
 			}
 			else
@@ -401,7 +401,7 @@ class GUI extends JFrame
 	public String placeBattle(int i, int j)
 	{
 		String out ="";
-		if(data.gameState.playerHomeGrid.isAirPlaced() && !data.battlePlaced)
+		if(data.gameState.playerHomeGrid.checkAirPlaced() && !data.battlePlaced)
 		{
 			if(isShipRotatedHorizonally())
 			{
@@ -453,7 +453,7 @@ class GUI extends JFrame
 	public String placeDest(int i, int j)
 	{
 		String out ="";
-		if(data.gameState.playerHomeGrid.isAirPlaced() && data.battlePlaced && !data.destPlaced)
+		if(data.gameState.playerHomeGrid.checkAirPlaced() && data.battlePlaced && !data.destPlaced)
 		{
 			if(isShipRotatedHorizonally())
 			{
@@ -505,7 +505,7 @@ class GUI extends JFrame
 	public String placeSub(int i, int j)
 	{
 		String out ="";
-		if(data.gameState.playerHomeGrid.isAirPlaced() && data.battlePlaced && data.destPlaced && !data.subPlaced)
+		if(data.gameState.playerHomeGrid.checkAirPlaced() && data.battlePlaced && data.destPlaced && !data.subPlaced)
 		{
 			if(isShipRotatedHorizonally())
 			{
@@ -558,7 +558,7 @@ class GUI extends JFrame
 	public String placeMine(int i, int j)
 	{
 		String out ="";
-		if(data.gameState.playerHomeGrid.isAirPlaced() && data.battlePlaced && data.destPlaced && data.subPlaced && !data.minePlaced)
+		if(data.gameState.playerHomeGrid.checkAirPlaced() && data.battlePlaced && data.destPlaced && data.subPlaced && !data.minePlaced)
 		{
 			if(isShipRotatedHorizonally())
 			{
@@ -603,7 +603,7 @@ class GUI extends JFrame
 		
 		}
 		
-		if(data.gameState.playerHomeGrid.isAirPlaced() && data.battlePlaced && data.destPlaced && data.subPlaced && data.minePlaced)
+		if(data.gameState.playerHomeGrid.checkAirPlaced() && data.battlePlaced && data.destPlaced && data.subPlaced && data.minePlaced)
 				this.endDeploymentPhase();
 			
 		}
@@ -699,7 +699,7 @@ class GUI extends JFrame
 	
 	public void endDeploymentPhase()
 	{
-		if(data.minePlaced && data.destPlaced && data.subPlaced &&	data.battlePlaced && data.gameState.playerHomeGrid.isAirPlaced())
+		if(data.minePlaced && data.destPlaced && data.subPlaced &&	data.battlePlaced && data.gameState.playerHomeGrid.checkAirPlaced())
 		data.gameState.SetAllShipsDeployed();
 		getOutText().setText("All Ships Deployed, Player's Turn! Click on the left grid to fire shots");
 		this.data.gameState.setPlayerTurn();

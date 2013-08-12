@@ -134,12 +134,66 @@ public class Grid implements Serializable
 	
 	public boolean checkAirSunk()
 	{		
-		//System.out.print(this.aircraftCarrier.toString()); 
-
 		return aircraftCarrier.isSunk();
 	}
 	
+	/**
+	  Ship placement logic
+	 */
 	
+	public void placeShipOnGrid(Ship ship, int i, int j,
+			boolean isHorizontal, int segments) {
+				int userColumn = this.getWidth();
+				int userRow = this.getLength();
+			
+				if (this.checkIsShipPlaced(ship))
+				{	
+						System.out.println(ship.getClass().getName() + " already placed\n");
+						return;
+				}
+				if (isHorizontal) {
+					this.placeHorizontalShipOnGrid(ship, i, j, segments, userColumn);
+				}
+				else 
+				{
+					this.placeVerticalShipOnGrid(ship, i, j, segments, userRow);
+				}
+			}
+
+	private void placeVerticalShipOnGrid(Ship ship, int i, int j,
+			int segments, int userRow) {
+		if (i + segments > userRow)
+			throw new PositionExceedsBoardException();
+
+		for (int r = i; r < i + segments; r++)
+			while (this.getGridVal(r, j) != 0) {
+				throw new PositionOccupiedException();
+			}
+
+		for (int r = i; r < i + segments; r++)
+		{
+			this.update(r, j, ship.shipGridValue());
+		}
+		this.setShipAsPlaced(ship);
+	}
+
+	private void placeHorizontalShipOnGrid(Ship ship, int i, int j, int segments,
+			int userColumn) {
+		if (j + segments > userColumn)
+			throw new PositionExceedsBoardException();
+
+		for (int c = j; c < j + segments; c++)
+			while (this.getGridVal(i, c) != 0) {
+				throw new PositionOccupiedException();
+			}
+
+		for (int c = j; c < j + segments; c++)
+		{
+			this.update(i, c, ship.shipGridValue());
+		}
+		this.setShipAsPlaced(ship);
+	}
+
 	
 	/**
 		Checks if the minesweeper has been placed
@@ -147,10 +201,15 @@ public class Grid implements Serializable
 	
 	public boolean checkMinePlaced()
 	{
-		if (minePlaced == true)
-			return true;
-		
-		else return false;
+		return minePlaced;
+	}
+	/**
+		Checks if the Destroyer has been placed
+	*/
+	
+	public boolean checkDestPlaced()
+	{
+		return destPlaced ;
 	}
 	/**
 		Sets minePlaced flag to true
@@ -191,10 +250,7 @@ public class Grid implements Serializable
 	
 	public boolean checkSubPlaced()
 	{
-		if (subPlaced == true)
-			return true;
-		
-		else return false;
+		return subPlaced;
 	}
 	/**
 		Sets subPlaced flag to true
@@ -266,17 +322,6 @@ public boolean addAir(int i, int j, int s)
 	}
 	
 
-	/**
-		Checks if the Destroyer has been placed
-	*/
-	
-	public boolean checkDestPlaced()
-	{
-		if (destPlaced == true)
-			return true;
-		
-		else return false;
-	}
 	/**
 		Sets destPlaced flag to true
 	*/
@@ -358,34 +403,23 @@ public boolean addAir(int i, int j, int s)
 	/**
 		Checks if the aircraftCarrier has been placed
 	*/
-		public boolean checkAirPlaced()
+	public boolean checkAirPlaced()
 	{
-		if (isAirPlaced() == true)
-			return true;
-		
-		else return false;
+		return airPlaced;
 	}
 	/**
 		Sets airPlaced flag to true
 	*/
-	
-	public void setAirPlacedTrue()
-	{
-		setAirPlaced(true);
-	}
 	
 	/**Checks if all ships have been placed*/
 	public boolean allShipsPlaced()
 	{
 		
 		if((checkMinePlaced()&& checkSubPlaced()&& checkDestPlaced()&& checkBattlePlaced()&& checkAirPlaced() ))
-		{return true;}
+			return true;
 		else
 			return false;
 	}	
-	
-	
-	
 	
 	
 	/**
@@ -611,17 +645,17 @@ public boolean addAir(int i, int j, int s)
 		if (battlePlaced == true)
 			Battleship="Battleship has been placed";
 		
-		if(isAirPlaced() ==true)
+		if(airPlaced ==true)
 			AircraftCarrier="Aircraft Carrier has been placed";
 		
 		return Minesweeper + "\n" + Destroyer + "\n" + Submarine + "\n" + Battleship + "\n" + AircraftCarrier;
 	}
+	
 	public void setAirPlaced(boolean airPlaced) {
 		this.airPlaced = airPlaced;
 	}
-	public boolean isAirPlaced() {
-		return airPlaced;
-	}
+	
+	
 	public boolean checkIsShipPlaced(Ship ship) {
 		Class<? extends Ship> shipclass = ship.getClass();
 		if(shipclass.equals(AircraftCarrier.class))
@@ -636,6 +670,7 @@ public boolean addAir(int i, int j, int s)
 			return minePlaced;
 		return false;	
 	}
+	
 	public void setShipAsPlaced(Ship ship) {
 		Class<? extends Ship> shipClass = ship.getClass();
 		if(shipClass.equals(AircraftCarrier.class))
