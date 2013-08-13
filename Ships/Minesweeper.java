@@ -11,6 +11,7 @@ public class Minesweeper extends Ship implements Serializable
 {
 	private int intactSegments = 2;
 	private int gridValue = 2;
+	private String name = "Minesweeper";
 	
 	public Minesweeper(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -38,5 +39,9 @@ public class Minesweeper extends Ship implements Serializable
 	{
 		return this.gridValue;
 	}
-
+	
+	public String GetName()
+	{
+		return this.name;
+	}
 }
