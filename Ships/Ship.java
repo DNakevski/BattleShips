@@ -24,5 +24,11 @@ public abstract class Ship implements Serializable
 		return this.GetGridValue();
 	}
 	
-	abstract int GetGridValue();
+	public abstract int GetGridValue();
+	
+	public abstract void scoreHit();
+	
+	public abstract boolean isSunk();
+	
+	public abstract String GetName();
 }

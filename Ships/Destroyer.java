@@ -13,6 +13,7 @@ public class Destroyer extends Ship implements Serializable
 {
 	private int remainingIntactCells = 3;
 	private int gridValue = 7;
+	private String name = "Destroyer";
 	
 	public Destroyer(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -40,5 +41,9 @@ public class Destroyer extends Ship implements Serializable
 	{
 		return this.gridValue;
 	}
-
+	
+	public String GetName()
+	{
+		return this.name;
+	}
 }

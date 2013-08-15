@@ -13,6 +13,7 @@ public class AircraftCarrier extends Ship implements Serializable
 	
 	private int intactSegments = 5;	
 	private int gridValue = 5;
+	private String name = "AircraftCarrier";
 
 	public AircraftCarrier(Grid board, int i, int j, boolean isHorizontal)
 	{
@@ -43,5 +44,8 @@ public class AircraftCarrier extends Ship implements Serializable
 		return this.gridValue;
 	}
 
-
+	public String GetName()
+	{
+		return this.name;
+	}
 }

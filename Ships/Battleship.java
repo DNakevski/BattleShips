@@ -13,9 +13,9 @@ import Battleships.exception.PositionOccupiedException;
 
 public class Battleship extends Ship implements Serializable
 {
-	
 	private int intactSegments = 4;	
 	private int gridValue = 4;
+	private String name = "Battleship";
 	
 	public Battleship(Grid board ,int i, int j, boolean isHorizontal)
 	{
@@ -44,5 +44,9 @@ public class Battleship extends Ship implements Serializable
 	{
 		return this.gridValue;
 	}
-
+	
+	public String GetName()
+	{
+		return this.name;
+	}
 }

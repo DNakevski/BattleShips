@@ -214,11 +214,79 @@ public class Grid implements Serializable
 	/**
 		Sets minePlaced flag to true
 	*/
-	
-	public void setMinePlacedTrue()
+
+	/**
+		Checks if the Sub has been placed
+	*/
+	public boolean checkSubPlaced()
 	{
-		minePlaced=true;
+		return subPlaced;
 	}
+	
+	/**
+		Checks if the aircraftCarrier has been placed
+	*/
+	public boolean checkAirPlaced()
+	{
+		return airPlaced;
+	}
+	
+	/**
+		Checks if the Battleship has been placed
+	*/
+	public boolean checkBattlePlaced()
+	{
+		return battlePlaced;
+	}
+
+
+	/**Checks if all ships have been placed*/
+	public boolean allShipsPlaced()
+	{
+		
+		if((checkMinePlaced()&& checkSubPlaced()&& checkDestPlaced()&& checkBattlePlaced()&& checkAirPlaced() ))
+			return true;
+		else
+			return false;
+	}	
+	
+	public void setMinePlaced(boolean minePlaced)
+	{
+		this.minePlaced = minePlaced;
+	}
+	
+	/**
+	Sets subPlaced flag to true
+	*/
+	
+	public void setSubPlaced(boolean subPlaced)
+	{
+		this.subPlaced=subPlaced;
+	}
+	
+	/**
+		Sets destPlaced flag to true
+	*/
+	
+	public void setDestPlaced(boolean destPlaced)
+	{
+		this.destPlaced=destPlaced;
+	}
+	
+	/**
+		Sets battlePlaced flag to true
+	*/
+	
+	public void setBattlePlaced(boolean battlePlaced)
+	{
+		this.battlePlaced=battlePlaced;
+	}
+	
+
+	public void setAirPlaced(boolean airPlaced) {
+		this.airPlaced = airPlaced;
+	}
+	
 	
 	public boolean addMine(int i, int j, int s)
 	{
@@ -243,24 +311,6 @@ public class Grid implements Serializable
 	}
 	
 	
-	
-	/**
-		Checks if the Sub has been placed
-	*/
-	
-	public boolean checkSubPlaced()
-	{
-		return subPlaced;
-	}
-	/**
-		Sets subPlaced flag to true
-	*/
-	
-	public void setSubPlacedTrue()
-	{
-		subPlaced=true;
-	}
-	
 	/**
 	Adds an Air object to the grid
 */
@@ -271,7 +321,7 @@ public boolean addAir(int i, int j, int s)
 	
 	try
 	{
-				aircraftCarrier = new AircraftCarrier(this, i, j, isHorizontal);
+		aircraftCarrier = new AircraftCarrier(this, i, j, isHorizontal);
 	}
 	
 	catch (PositionOccupiedException Exception)
@@ -322,14 +372,6 @@ public boolean addAir(int i, int j, int s)
 	}
 	
 
-	/**
-		Sets destPlaced flag to true
-	*/
-	
-	public void setDestPlacedTrue()
-	{
-		destPlaced=true;
-	}
 	
 	/**
 		Adds a Destroyer object to the grid
@@ -359,22 +401,6 @@ public boolean addAir(int i, int j, int s)
 		
 	
 	/**
-		Checks if the Battleship has been placed
-	*/
-		public boolean checkBattlePlaced()
-		{
-			return battlePlaced;
-		}
-	/**
-		Sets battlePlaced flag to true
-	*/
-	
-	public void setBattlePlacedTrue()
-	{
-		battlePlaced=true;
-	}
-	
-	/**
 		Adds a Battle object to the grid
 	*/
 	
@@ -398,28 +424,6 @@ public boolean addAir(int i, int j, int s)
 		}
 			return checkBattlePlaced();
 	}
-	
-	
-	/**
-		Checks if the aircraftCarrier has been placed
-	*/
-	public boolean checkAirPlaced()
-	{
-		return airPlaced;
-	}
-	/**
-		Sets airPlaced flag to true
-	*/
-	
-	/**Checks if all ships have been placed*/
-	public boolean allShipsPlaced()
-	{
-		
-		if((checkMinePlaced()&& checkSubPlaced()&& checkDestPlaced()&& checkBattlePlaced()&& checkAirPlaced() ))
-			return true;
-		else
-			return false;
-	}	
 	
 	
 	/**
@@ -482,82 +486,48 @@ public boolean addAir(int i, int j, int s)
 	{
 		int sqr = this.getGridVal(i,j);
 		
-		
 		String output = ("Shot at " + i + "," +j + " value of square is " + sqr);
 		
 		boolean hit = false;
 		
-		
+		Ship ship = null;
 		
 		switch (sqr)
 		{
 		case 0: hit= false; output =("Shot at " + i + "," +j + " MISS" + " value of square is " + sqr); this.update(i,j,1); break;
 		case 1: hit= false; output =("Shot at " + i + "," +j + " INVALID shot already taken here" + " value of square is " + sqr); break;
 			
-		case 2: minesweeper.scoreHit();
-			
-				if (minesweeper.isSunk()== true)
-					output =("Shot at " + i + "," +j + " HIT & SUNK Minesweeper" + " value of square is " + sqr);
-								
-				else if(minesweeper.isSunk()== false)
-				output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
-					this.update(i,j,(sqr - 8)); 
-					hit= true;
+		case 2:	ship = minesweeper;
 		break;
 		
-			
-		case 3: submarine.scoreHit(); 
-		
-				if (submarine.isSunk()== true)
-					output =("Shot at " + i + "," +j + " HIT & SUNK Submarine" + " value of square is " + sqr);
-			
-				else if(submarine.isSunk()== false)
-					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
-					this.update(i,j,(sqr - 8)); 
-					hit= true;
+		case 3: ship = submarine;
 		break;		
 		
-		case 4: battleship.scoreHit(); 
-		
-				if (battleship.isSunk()== true)
-					output =("Shot at " + i + "," +j + " HIT & SUNK Battleship" + " value of square is " + sqr);
-			
-				else if(battleship.isSunk()== false)
-					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
-					this.update(i,j,(sqr - 8)); 
-					hit= true;
-			break;
-		
-		
-		case 5: aircraftCarrier.scoreHit(); 
-		
-				if (aircraftCarrier.isSunk()== true)
-					output =("Shot at " + i + "," +j + " HIT & SUNK Aircraft Carrier" + " value of square is " + sqr);
-			
-				else if(aircraftCarrier.isSunk()== false)
-					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
-					this.update(i,j,(sqr - 8)); 
-					hit= true;
+		case 4: ship = battleship;
 		break;
 		
+		case 5: ship = aircraftCarrier;
+		break;
 		
-		
-		case 7: destroyer.scoreHit(); 
-		
-				if (destroyer.isSunk()== true)
-					output =("Shot at " + i + "," +j + " HIT & SUNK destroyer" + " value of square is " + sqr);
-			
-				else if(destroyer.isSunk()== false)
-					output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
-					this.update(i,j,(sqr - 8)); 
-					hit= true;
+		case 7: ship = destroyer;
 		break;
 		
 		default: output =("Shot at " + i + "," +j + " ERROR shot is either already hit, or incorect" + " value of square is " + sqr); break; 
 		}
 		
-		if (sqr <0)
+		if (sqr < 0)
 			output =("Shot at " + i + "," +j + " ERROR location contains a sunk ship. Value of square is " + sqr);
+		else if(ship != null)
+		{
+			ship.scoreHit();
+			if (ship.isSunk() == true)
+				output =("Shot at " + i + "," +j + " HIT & SUNK " + ship.GetName() + " value of square is " + sqr);
+			else
+				output =("Shot at " + i + "," +j + " HIT " + " value of square is " + sqr);
+					
+			this.update(i,j,(sqr - 8)); 
+			hit= true;
+		}
 			
 		return hit;
 	
@@ -649,10 +619,6 @@ public boolean addAir(int i, int j, int s)
 			AircraftCarrier="Aircraft Carrier has been placed";
 		
 		return Minesweeper + "\n" + Destroyer + "\n" + Submarine + "\n" + Battleship + "\n" + AircraftCarrier;
-	}
-	
-	public void setAirPlaced(boolean airPlaced) {
-		this.airPlaced = airPlaced;
 	}
 	
 	
