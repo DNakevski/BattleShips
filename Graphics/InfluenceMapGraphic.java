@@ -13,15 +13,7 @@ public class InfluenceMapGraphic
 		@param y the y-coordinate of the top left corner
 	*/
 	
-/*	private int xLeft;
-	private int yTop;
-	
-	public Miss(int x, int y)
-	{
-		xLeft = x;
-		yTop = y;
-	}
-	*/
+
 	public static void paint(Graphics g, int xLeft, int yTop, int val)
 		{
 			Color mapVal = new Color( 20 , 250, 250);//Creates the colour for the map
@@ -158,7 +150,6 @@ public class InfluenceMapGraphic
 				g.setColor(mapVal);
 			}
 			
-			//g.setColor(mapVal);
 			g.fillRect(xLeft, yTop, 20, 20);
 			
 			

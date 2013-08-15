@@ -13,16 +13,7 @@ public class Battleship
 		@param x the x-coordinate of the top left corner
 		@param y the y-coordinate of the top left corner
 	*/
-	/*
-	private int xLeft;
-	private int yTop;
 	
-	public void Battleship(int x, int y)
-	{
-		xLeft = x;
-		yTop = y;
-	}
-	*/
 	public static void paint(Graphics g, int xLeft, int yTop)
 		{
 			Color navyGrey = new Color( 180, 180, 180);			

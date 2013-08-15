@@ -11,16 +11,7 @@ public class DrawGrid
 		@param x the x-coordinate of the top left corner
 		@param y the y-coordinate of the top left corner
 	*/
-	/*
-	private int xLeft;
-	private int yTop;
-	
-	public Grid(int x, int y)
-	{
-		xLeft = x;
-		yTop = y;
-	}
-	*/
+
 	public static void paint(Graphics g, int xLeft, int yTop)
 		{
 			g.setColor(Color.black);
@@ -38,7 +29,6 @@ public class DrawGrid
 			g.drawRect(xLeft,yTop,180,200);
 			g.drawRect(xLeft,yTop,200,200);//Finished drawing Vertical collumns 			
 								
-			//g.setColor(Color.blue);
 			g.drawRect(xLeft,yTop,200,20); //the horzontal collumn
 			g.drawRect(xLeft,yTop,200,40);
 			g.drawRect(xLeft,yTop,200,60);
@@ -49,7 +39,6 @@ public class DrawGrid
 			g.drawRect(xLeft,yTop,200,160);
 			g.drawRect(xLeft,yTop,200,180);
 			g.drawRect(xLeft,yTop,200,200);// finished drawing Grid
-			//g.setColor(Color.black);
 		}
 
 	

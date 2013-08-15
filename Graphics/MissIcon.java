@@ -12,16 +12,7 @@ public class MissIcon
 		@param x the x-coordinate of the top left corner
 		@param y the y-coordinate of the top left corner
 	*/
-	
-/*	private int xLeft;
-	private int yTop;
-	
-	public Miss(int x, int y)
-	{
-		xLeft = x;
-		yTop = y;
-	}
-	*/
+
 	public static void paint(Graphics g, int xLeft, int yTop)
 		{
 			Color foamBlue = new Color( 150, 237, 255);//Creates the colour for the foam
