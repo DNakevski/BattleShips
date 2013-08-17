@@ -11,10 +11,10 @@ import java.util.*;
 class GUI extends JFrame
 {
 	
-		BattleShipsEngine data = new BattleShipsEngine();
+	BattleShipsEngine data = new BattleShipsEngine();
 
 
-		public GUI(GameState paramGameState)
+	public GUI(GameState paramGameState)
 	{
 		super("Battleships");	
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,10 +22,6 @@ class GUI extends JFrame
 		contentPane.setLayout(new BorderLayout(2,1));
 		this.setResizable(false);
 		
-		
-		
-		
-
 		
 		data.minePlaced = false;
 		data.destPlaced = false;
@@ -82,7 +78,17 @@ class GUI extends JFrame
 		IMPanel.add(data.influenceMapPanel);
 		CenterPanel.add(IMPanel);
 		
+		CreatePanels(contentPane, CenterPanel);
+		
+		this.pack();
+		this.setSize(640,400);
+		this.setVisible(true);
+			
+	}
 	
+	public void CreatePanels(Container contentPane, Container CenterPanel)
+	{
+		
 		/*
 		Creates the southPanel. This panel holds the ship status
 		and rotate button
@@ -139,30 +145,9 @@ class GUI extends JFrame
 		//add bottomShipPanel to shipPanel
 		shipPanel.add(bottomShipLabelPanel);
 				
-				
-		//add mineweeper label to the topShipLabelPanel
-	//	JLabel minesweeperLabel = new JLabel("Minesweeper");
-		//topShipLabelPanel.add(minesweeperLabel);
-		
-		//add submarine label to the topShipLabelPanel
-	//	JLabel submarineLabel = new JLabel("Submarine");
-		//topShipLabelPanel.add(submarineLabel);
-		
-		//add destroyer label to the topShipLabelPanel
-		//JLabel destroyerLabel = new JLabel("Destroyer");
-		//topShipLabelPanel.add(destroyerLabel);
-		
-		//add Battleship label to the bottomShipLabelPanel
-	//	JLabel battlershipLabel = new JLabel("Battleship");
-	//	bottomShipLabelPanel.add(battlershipLabel);
-		
-		//add Aircraft Carrier label to the bottomShipLabelPanel
-	//	JLabel aircraftCarrierLabel = new JLabel("Aircraft Carrier");
-	//	bottomShipLabelPanel.add(aircraftCarrierLabel);
 		
 		JButton NewButton = new JButton("New Game");
 		topShipPanel.add(NewButton);
-	//	NewButton.addMouseListener(new NewButtonAction(this));
 		
 		JButton hideButton = new JButton("Hide Influence Map");
 		topShipPanel.add(hideButton);
@@ -203,17 +188,13 @@ class GUI extends JFrame
 		
 		contentPane.add(CenterPanel,BorderLayout.CENTER);
 		contentPane.add(southPanel,BorderLayout.SOUTH);
-		
-		this.pack();
-		this.setSize(640,400);
-		this.setVisible(true);
-			
 	}
 	
 	public void setOut(String s)
 	{
 		getOutText().setText(s);
 	}
+	
 	public void repaint()
 	{
 		Graphics attackPanelGraphics = data.attackPanel.getGraphics();	
@@ -293,10 +274,6 @@ class GUI extends JFrame
 	
 		 data.agentWins= false;
 		
-		 
-		
-		 
-
 		 setHoriz(false);
 		 data.showMap= false;
 		
@@ -305,7 +282,7 @@ class GUI extends JFrame
 		 data.subPlaced= false;
 		 data.battlePlaced= false;
 		
-
+	
 		 data.agentMineSunk= false;
 		 data.agentDestSunk= false;
 		 data.agentSubSunk= false;
@@ -320,32 +297,13 @@ class GUI extends JFrame
 		
 		setHoriz(true);
 		data.showMap= true;
-		
-		
-		
-		Grid compHome = new Grid(10,10);
-		Grid compAtt = new Grid(10,10);
 	
-		
-		
-		
-		
-		
 		this.pack();
 		this.setSize(640,400);
 		this.setVisible(true);	
 
 	}
 	
-	public void paintComponent(Graphics g)
-	{
-		//super.paint(g);
-		//Graphics2D g2 = (Graphics2D)g;
-		
-	}
-		
-	
-		
 	
 	public String placeAir(int i, int j)
 	{
@@ -656,21 +614,11 @@ class GUI extends JFrame
 		out1= out1 + "\n" +this.placeDest(i,j);
 		out1= out1 + "\n" +this.placeSub(i,j);
 		out1= out1 + "\n" +this.placeMine(i,j);
-	//	if(playerHome.allShipsPlaced())
-	//	{
-			//this.deployed();
-	//	}
-			//this.playerTurn();	
-	out1=out1 + data.gameState.playerTurn;	/*playerHome.allShipsPlaced()*/;
 	
+		out1=out1 + data.gameState.playerTurn;	
 	
 		return out1;
 	}
-
-	
-	
-
-	
 
 	
 	public void setAgentWins()
@@ -684,19 +632,7 @@ class GUI extends JFrame
 		return data.gameState.IsGameOver();
 	}
 
-	
-	
 
-	
-	
-	
-
-	/*
-	public void startDeployment()
-	{
-		deployment= true;
-	}*/
-	
 	public void endDeploymentPhase()
 	{
 		if(data.minePlaced && data.destPlaced && data.subPlaced &&	data.battlePlaced && data.gameState.playerHomeGrid.checkAirPlaced())
@@ -809,9 +745,6 @@ class GUI extends JFrame
 	}
 		
 
-	
-
-
 	private void setHoriz(boolean horiz) {
 		this.data.horiz = horiz;
 	}
@@ -828,18 +761,6 @@ class GUI extends JFrame
 		return data.outText;
 	}	
 		
-		/*
-		smith.nextShot(m, compAtt);
-		int i =smith.getI();
-		int j =smith.getJ();
-		while(!g.getPlayerTurn() && !g.getGameOver())
-		{
-			g.agentShot(0,0);
-		}
-		System.out.println(compHome.toString());
-		
-		*/
-	
 	
 }
 	
@@ -859,56 +780,53 @@ class AttackMousePressListener extends MouseAdapter
 	}
 	  
 	
-			public void mousePressed(MouseEvent event)
-			{
-				if(gui.data.gameState.IsAcceptingPlayerInput())
-				{
-					Graphics g = a.getGraphics();
-					int x = event.getX();
-					int y = event.getY();
-				
-					int gridj= resolveAxisCoOrdinate(x);
-					int gridi= resolveAxisCoOrdinate(y);
-				
-					Graphics attackPanelGraphics = a.getGraphics();
-					
-	                String acceptPlayerShotString = 
-	                	gui.data.gameState.acceptPlayerShot(gridi,gridj, attackPanelGraphics, gui.data.outText);
-	                
-	                //gui.gameState.updatePlayerClick(gridi, gridj, gui);
-	                
-	                
-	                
-					System.out.println(acceptPlayerShotString);
-					System.out.println("Element corresponds to " + gridi + gridj);
-					
-					
-				}
-			}
+	public void mousePressed(MouseEvent event)
+	{
+		if(gui.data.gameState.IsAcceptingPlayerInput())
+		{
+			Graphics g = a.getGraphics();
+			int x = event.getX();
+			int y = event.getY();
+		
+			int gridj= resolveAxisCoOrdinate(x);
+			int gridi= resolveAxisCoOrdinate(y);
+		
+			Graphics attackPanelGraphics = a.getGraphics();
+			
+            String acceptPlayerShotString = 
+            	gui.data.gameState.acceptPlayerShot(gridi,gridj, attackPanelGraphics, gui.data.outText);
+            
+            
+			System.out.println(acceptPlayerShotString);
+			System.out.println("Element corresponds to " + gridi + gridj);
+			
+			
+		}
+	}
 
-			private int resolveAxisCoOrdinate(int x) {
-				if (x < 20)
-					return 0;
-				else if (x <40)
-					return 1;
-				else if (x <60)
-					return 2;
-				else if (x <80)
-					return 3;
-				else if (x <100)
-					return 4;
-				else if (x <120)
-					return 5;
-				else if (x <140)
-					return 6;
-				else if (x <160)
-					return 7;
-				else if (x <180)
-					return 8;
-				else if (x <200)
-					return 9;
-				return -1;
-			}
+	private int resolveAxisCoOrdinate(int x) {
+		if (x < 20)
+			return 0;
+		else if (x <40)
+			return 1;
+		else if (x <60)
+			return 2;
+		else if (x <80)
+			return 3;
+		else if (x <100)
+			return 4;
+		else if (x <120)
+			return 5;
+		else if (x <140)
+			return 6;
+		else if (x <160)
+			return 7;
+		else if (x <180)
+			return 8;
+		else if (x <200)
+			return 9;
+		return -1;
+	}
 
 
 			

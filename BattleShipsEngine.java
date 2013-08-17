@@ -60,10 +60,25 @@ public class BattleShipsEngine {
 				//PlayerDeploymentPhase, wait for player to place all their ships
 		}
 		
-		gui.data.gameState.addAgentShips(smith.placeShips());
+		StartGame(gui, smith);
 		
+		System.out.println("Game Over!");
+		if(gui.data.gameState.isPlayerWinner())
+		{
+			System.out.println("Player Wins");
+			gui.setOut("Game Over! You Win!");
+		}
+		else
+		{
+			System.out.println("Computer Wins");
+			gui.setOut("Game Over! Agent Wins!");
+		}
 		
+	}
 
+    public static void StartGame(GUI gui, Agent smith)
+    {
+		gui.data.gameState.addAgentShips(smith.placeShips());
 		gui.data.gameState.setPlayerTurn();
 		gui.data.outText.setText(gui.data.gameState.turnToString());
 
@@ -91,10 +106,7 @@ public class BattleShipsEngine {
 				gui.agentShot(smith.getI(),smith.getJ());
 				System.out.println("shot at " + smith.getI() + " " +smith.getJ());
 				System.out.println(gui.data.gameState.compAtt.toString());
-				//if(gameState.playerHome.get(i,j
-				
-				
-				
+			
 				determineIfShotSunkAShip(gui, smith);
 				
 				gui.data.gameState.setShipSunkStates();
@@ -107,13 +119,6 @@ public class BattleShipsEngine {
 					e.printStackTrace();
 				}
 				
-				/*
-				if(g.getAgentShipsSunk())
-				{
-					g.setGameOver();
-					g.setPlayerWins();
-				}
-				*/
 				if(gui.data.gameState.getPlayerShipsSunk())
 				{
 					gui.setAgentWins();
@@ -123,26 +128,15 @@ public class BattleShipsEngine {
 				}			
 			}
 			
-
 		}
-		
-		System.out.println("Game Over!");
-		if(gui.data.gameState.isPlayerWinner())
-		{
-			System.out.println("Player Wins");
-			gui.setOut("Game Over! You Win!");
-		}
-		else
-		{
-			System.out.println("Computer Wins");
-			gui.setOut("Game Over! Agent Wins!");
-		}
-		
-		}
-
-
+    }
+    
+    
+    
 	private static void determineIfShotSunkAShip(GUI gui, Agent smith) {
+		
 		System.out.println("Player Home board \n" +gui.data.gameState.playerHomeGrid.toString());
+		
 		if(gui.data.gameState.playerHomeGrid.checkMineSunk()&& !gui.getPaintMineSunk())
 		{
 				for (int i = 0; i < 10; i++) //change these to ROWS to use the default

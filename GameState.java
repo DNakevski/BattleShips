@@ -132,12 +132,10 @@ public class GameState {
 
 		}
 
-		if (isAgentAirSunk() && isAgentBattleSunk() && agentDestSunk && agentSubSunk
-				&& agentMineSunk)
+		if (isAgentAirSunk() && isAgentBattleSunk() && agentDestSunk && agentSubSunk && agentMineSunk)
 			allAgentShipsSunk = true;
 
-		if (playerAircraftCarrierSunk && playerBattleSunk && playerDestSunk
-				&& playerSubSunk && playerMineSunk)
+		if (playerAircraftCarrierSunk && playerBattleSunk && playerDestSunk && playerSubSunk && playerMineSunk)
 			allPlayerShipsSunk = true;
 
 	}
@@ -152,7 +150,6 @@ public class GameState {
 
 	public void updatePlayerClick(int gridj, int gridi, Graphics attackPanelGraphics) {
 		if (playerTurn && !isGameOver && playerShipsdeployed) {
-			//System.out.println(acceptPlayerShot(gridi, gridj, attackPanelGraphics));
 			setShipSunkStates();
 		}
 	}
@@ -166,8 +163,6 @@ public class GameState {
 			{
 				boolean hit = false;
 				hit = compHomeGrid.shot(i,j);
-		
-				
 		
 				if(hit)
 				{

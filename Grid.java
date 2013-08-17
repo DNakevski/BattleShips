@@ -122,7 +122,6 @@ public class Grid implements Serializable
 	
 	public boolean checkDestSunk()
 	{
-		
 		return destroyer.isSunk();
 	}
 	

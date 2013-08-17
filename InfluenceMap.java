@@ -27,8 +27,9 @@ public class InfluenceMap implements Serializable
 		map = new int[10][10];
 			
 			for (int a = 0; a< 10; a++)
-			for (int b = 0; b < 10; b++)
-				map[a][b] = 0;
+				for (int b = 0; b < 10; b++)
+					map[a][b] = 0;
+			
 		turns = 9999;
 	}
 	/**
@@ -82,26 +83,7 @@ public class InfluenceMap implements Serializable
 		
 		return maxVal;
 	}
-	/*
-	/**Sets three hits consequtive emanating from the last hit element to sunk ship *
-	public void subSunk(int i, int j)
-	{
-		try
-		{	//if two consequitive elements to the west are hits, set them all to sunk
-				if(map[i+1][j] ==hit &&map[i+2][j] ==hit)
-				{
-					map[i+1][j] = map[i+1][j] + 3;
-				}
-			
-			// if western was also a hit then increment eastern by 15
-				if(map[i+1][j] ==hit)
-				{
-					map[i-1][j] = map[i-1][j] + 15;
-				}
-			}
-	}
-		
-	*/
+
 	/**
 		Returns the number of cells on the influence map that have the maximum influence value.
 	
@@ -140,8 +122,7 @@ public class InfluenceMap implements Serializable
 			for (int j = 0; j<10; j++)
 			{
 				if(map[i][j]== maxVal)
-				
-				coOrds = coOrds + i + j;	
+					coOrds = coOrds + i + j;	
 			}
 		}
 		return coOrds;
@@ -186,28 +167,7 @@ public class InfluenceMap implements Serializable
 	{
 		turns = t;
 	}
-	
-	/*
-	public int getHSref
-	
-		String pair1 = "";
-		
-		int pairs = (this.getNumberOfHotspots())*2;
-			
-		int sub1 = 0;
-		int sub2 = 0;
-		
-		pair1 =	coOrds.substring(0,1);
-		
-		refs[0][0]
-		int subPair1 = 0;
-		int subPair2 = 0;
-		
-		
-		*/
-	
 
-	
 	/**
 		Increases the value of the specified cell's northern, southern, eastern and western
 		neighbour by one. The actual specified cell has it's value changed to 9. This method will not alter 
@@ -222,6 +182,78 @@ public class InfluenceMap implements Serializable
 		}
 		map[i][j] =hit;
 		
+		CheckIfSouthernIsHit(i, j);
+		CheckIfNorhernIsHit(i, j);
+		CheckIfEasternIsHit(i, j);
+		CheckIfWesternIsHit(i, j);
+
+	}	
+	
+	public void CheckIfWesternIsHit(int i, int j)
+	{
+		try
+		{ // western is not a hit increment it
+				if(map[i][j-1] !=hit)
+				map[i][j-1] = map[i][j-1] + 4;
+		
+		
+			 // western is a hit and eastern isn't increment eastern by 8
+				if(map[i][j-1] ==hit && map[i][j+1] !=hit)
+				{
+					map[i][j+1] = map[i][j+1] + 11;
+				}
+			}
+		
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			// do nothing
+		}
+	}
+	
+	public void CheckIfEasternIsHit(int i, int j)
+	{
+		try
+		{	//if eastern is not a hit, increment it
+				if(map[i][j+1] !=hit)
+				map[i][j+1] = map[i][j+1] + 4;
+
+				//if eastern is a hit, and western isn't increment western by 11
+				if(map[i][j+1] ==hit && map[i][j-1]!= hit)
+				{
+					map[i][j-1] = map[i][j-1] + 11;
+				}
+			}
+		
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			// do nothing
+		}
+	}
+	
+	public void CheckIfNorhernIsHit(int i, int j)
+	{
+		try
+		{		//if northern is not a hit, increament it
+				if(map[i-1][j] !=hit)
+				{
+					map[i-1][j] = map[i-1][j] + 2;
+				}
+				
+				// if northern is a hit and southern isn't then increment southern by 8
+				if(map[i-1][j] ==hit && map[i+1][j] !=hit)
+				{
+					map[i+1][j] = map[i+1][j] + 11;
+				}
+			}
+		
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			// do nothing
+		}
+	}
+	
+	public void CheckIfSouthernIsHit(int i, int j)
+	{
 		try
 		{	//if southern is not a hit, increament it
 				if(map[i+1][j] !=hit)
@@ -241,61 +273,7 @@ public class InfluenceMap implements Serializable
 		{
 			// do nothing
 		}
-		
-		try
-		{		//if northern is not a hit, increament it
-				if(map[i-1][j] !=hit)
-				{
-					map[i-1][j] = map[i-1][j] + 2;
-				}
-				
-				// if northern is a hit and southern isn't then increment southern by 8
-				if(map[i-1][j] ==hit && map[i+1][j] !=hit)
-				{
-					map[i+1][j] = map[i+1][j] + 11;
-				}
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-			
-		try
-		{	//if eastern is not a hit, increment it
-				if(map[i][j+1] !=hit)
-				map[i][j+1] = map[i][j+1] + 4;
-
-				//if eastern is a hit, and western isn't increment western by 11
-				if(map[i][j+1] ==hit && map[i][j-1]!= hit)
-				{
-					map[i][j-1] = map[i][j-1] + 11;
-				}
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-
-		try
-		{ // western is not a hit increment it
-				if(map[i][j-1] !=hit)
-				map[i][j-1] = map[i][j-1] + 4;
-		
-		
-			 // western is a hit and eastern isn't increment eastern by 8
-				if(map[i][j-1] ==hit && map[i][j+1] !=hit)
-				{
-					map[i][j+1] = map[i][j+1] + 11;
-				}
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-	}	
+	}
 	
 	public void sunk(int i, int j)
 	{
@@ -865,8 +843,6 @@ public class InfluenceMap implements Serializable
 		//enters statement if it is in a corner
 		//top left corner
 		
-		//while (!done)
-		//{
 		
 		if(map[i][j]!=-5)
 		{
@@ -1005,62 +981,7 @@ public class InfluenceMap implements Serializable
 	
 	
 	}
-	
-	
-	
-	
-	/**
-		Decreases the value of the specified cell's northern, southern, eastern and western
-		neighbour by one. The actual specified cell has it's value changed to -8
-	
-	public void cool(int i, int j)
-	{
-		map[i][j] = -8;
-		
-		try
-			{
-				map[i+1][j] = map[i+1][j] - 1;
-				
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-		
-		try
-			{
-				map[i-1][j] = map[i-1][j] - 1;
-			}	
 
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-				
-		try 
-			{
-				map[i][j+1] = map[i][j+1] - 1;
-			}	
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-				
-		try
-			{
-				map[i][j-1] = map[i][j-1] - 1;
-			}	
-				
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-	}
-	*/
-
-	
 	/**
 		Returns the j of the cell with the highest influence value
 	*/
@@ -1165,63 +1086,3 @@ public class InfluenceMap implements Serializable
 	}
 	
 }
-
-
-	/** old version does not include consequtive hits
-		Increases the value of the specified cell's northern, southern, eastern and western
-		neighbour by one. The actual specified cell has it's value changed to 8. This method will not alter 
-		any cells who's value is already 8
-	*
-	/*public void hit(int i, int j)
-	{
-		if(map[i][j] == hit)
-		{
-			//throw new IllegalArgumentException("Hit already taken");
-		}
-		map[i][j] =hit;;
-		
-		try
-			{
-				if(map[i+1][j] !=hit)
-				map[i+1][j] = map[i+1][j] + 3;
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-		
-		try
-			{
-				if(map[i-1][j] !=hit)
-				map[i-1][j] = map[i-1][j] + 3;
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-			
-		try
-			{	
-				if(map[i][j+1] !=hit)
-				map[i][j+1] = map[i][j+1] + 3;
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-
-		try
-			{
-				if(map[i][j-1] !=hit)
-				map[i][j-1] = map[i][j-1] + 3;
-			}
-		
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			// do nothing
-		}
-	}
-	*/
